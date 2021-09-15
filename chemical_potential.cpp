@@ -20,7 +20,7 @@ class baryon
         double isospin; 
         double density; 
 
-        double p_fi; 
+        double pf; 
         double m_eff; 
 
         void initialize(double baryon_density_val, double number_density_val, double mass_val ){
@@ -28,8 +28,11 @@ class baryon
             mass = mass_val; 
             number_density = number_density_val; 
 
-            p_fi = ; 
-
+            // might have to scale fermi momentum...
+            pf = pow(3*pi*pi*number_density, 1.0/3.0);
+            // possible issue here, what does it mean for a field sigma to take on
+            // a specific value?
+            m_eff = sqrt(pow(p_fi,2) + pow(mass - ))
         }
 
 }
@@ -39,17 +42,26 @@ class lepton
     public: 
         double mass; 
         double chemical_potential; 
+        double pf; 
+        double num_density; 
 
-        void initialize(double mass_val, double )
+        void initialize(double mass_val, double density_val, double pf_val){
+            mass = mass_val; 
+            num_density = density_val; 
+
+            pf = pow(3*pi*pi*num_density, 1.0/3.0);
+            chemical_potential = sqrt(pow(hbarc*pf,2) + pow(mass*c*c),2); 
+        }
 }
+
 
 class equation_of_state
 {   
     // probably would only be for sigma-omega-rho type models. Essentially only thing that we can 
     // do here is define the coupling constants. 
     public:
-        double g_sigma; 
-        double g_omega; 
+        double g_sigma[num_species]; 
+        double g_omega[num_species]; 
 
         void initialize(double sigma, double omega){
             g_sigma = sigma;
@@ -72,6 +84,7 @@ class equation_of_state
 
 double Y_ij(int i, int j, double baryon_density, double number_density){
     // calculates Y_ij as a function of number density n_i and baryon density n_B... 
+    // need to iterate through an array of class objects... is this possible? 
     double helper_1; 
     double helper_2;
     double helper_3; 
@@ -81,6 +94,27 @@ double Y_ij(int i, int j, double baryon_density, double number_density){
     for(int i = 0; i < num_species; i++){
         a_11 = 
     }
+
+
+    double a_12 = 0.0; 
+    for(int i = 0; i < num_species; i++){
+        a_12 = 
+    }
+
+    double a_21 = 0.0; 
+    for(int i = 0; i < num_species; i++){
+        a_13 = ; 
+    }
+
+    double a_22 = 1.0; 
+    for(int i = 0; i < num_species; i++){
+        a_22 = ; 
+    }
+
+    double A = a_22*a_11 - a_12*a_21; 
+
+    
+
 }
 
 // Then using the matrix elements solve for chemical potentials... 
@@ -89,16 +123,28 @@ double Y_ij(int i, int j, double baryon_density, double number_density){
 
 // would then need a partial derivative routine... 
 // in addition, would need to write out arrays of the baryon densities and other stuf.... 
-double partial_derivative
+double partial_derivative(double x, double y, double z){
+    // 
+}
 
 
 // then actually calculate the difference in the sound speed...
+
+// would have to code in some disgusting systems of equations   
+
 // then send off the data to Dr. Jaikumar so he can plug into his g-mode code
-void sound_speed
+double sound_speed_difference(){
+    // returns sound speed difference... 
+}
+
+
+
+
 
 
 int main(int argc, char argv[]){
     // declare the baryon classes and stuff...
+    baryon neutron; 
 
 
 

@@ -4,7 +4,9 @@
 
 #include <cmath> 
 
-double pi = M_PI; 
+const double pi = M_PI; 
+const double hbarc = 197.3; 
+const double c; 
 
 
 // number of species in consideration: Neutron, Proton, Lambda (only Baryons)
